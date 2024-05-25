@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: jwt2
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/security_jwt2?createDatabaseIfNotExist=true&useSSL=false
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        format_sql: true
