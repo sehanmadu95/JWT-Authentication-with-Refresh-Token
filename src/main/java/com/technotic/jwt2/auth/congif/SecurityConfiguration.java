@@ -13,6 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.technotic.jwt2.auth.entity.UserRole.ADMIN;
+import static com.technotic.jwt2.auth.entity.UserRole.USER;
+
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -28,8 +31,9 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/api/v1/auth/**")
-                        .permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/main/welcome").permitAll()
+                        .requestMatchers("/api/v1/main/all").hasAnyRole(ADMIN.name(),USER.name())
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(session->session
